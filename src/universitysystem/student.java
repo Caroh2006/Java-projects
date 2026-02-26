@@ -1,15 +1,15 @@
 package universitysystem;
 
-public class student extends person implements Registration, FeePayment {
+public class Student extends Person implements Registration, FeePayment {
     private String program;
 
-    public student(String name, String id, String program) {
+    public Student(String name, String id, String program) {
         super(name, id);
         this.program = program;;
     }
 
     @Override
-    public void displayrole() {
+     public void displayRole() {
         System.out.println("Role: Student in program " + program);
     }
 
@@ -20,7 +20,7 @@ public class student extends person implements Registration, FeePayment {
 
     @Override
     public void payFee(double amount) {
-        System.out.println("Paid fee: $" + amount);
+        System.out.println(getName() + " paid fee: $" + amount);
     }
     
 }

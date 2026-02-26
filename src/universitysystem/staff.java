@@ -1,16 +1,10 @@
-public abstract class staff extends person {
+public abstract class staff extends Person {
     private String department;
 
     public staff(String name, String id, String department) {
         super(name, id);
         this.department = department;
     }
-
-    public String getDepartment() {
-        return department;
-    }
-    public void performDuties() {
-        System.out.println(getName() + " is performing staff duties in the " + department + " department.");
     }
     
 }

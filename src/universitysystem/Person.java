@@ -1,18 +1,18 @@
-public abstract class person {
+public abstract class Person {
     private String name;
     private String id;
     
-public person(String name, String id) {
+public Person(String name, String id) {
     this.name = name;
     this.id = id;
 }
-public String getname() {
+public String getName() {
     return name;
 }
-public int getid() {
+public String getId() {
     return id;
 }
-public abstract void displayrole();
+public abstract void displayRole();
 
 }
 
