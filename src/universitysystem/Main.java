@@ -1,51 +1,73 @@
 package universitysystem;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
+
 public class Main {
+
+    public static void saveStudents(ArrayList<Student> students) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("students.txt"))) {
+            for (Student s : students) {
+                writer.write(s.getId() + "," + s.getName() + "," + s.getProgram());
+                writer.newLine();
+            }
+
+            System.out.println("Data saved successfully to students.txt");
+        } catch (IOException e) {
+            System.out.println("Error saving file.");
+        }
+    }
+    public static void loadStudents(ArrayList<Student> students) {
+        File file = new File("students.txt");
+        if (!file.exists()) {
+            System.out.println("No previous data found.");
+            return;
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("students.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+
+                Student s = new Student(data[1], data[0], data[2]);
+                students.add(s);
+            }
+        System.out.println("Previous data loaded successfully from students.txt");
+      }     catch (IOException e) {
+            System.out.println("Error loading file.");
+      }
+        }
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-    try{
-        System.out.print("Enter course name:");
-        String courseName = sc.nextLine();
-        System.out.print("Enter course code:");
-        int courseCode =sc.nextInt();
-        sc.nextLine();
-        Course course1 = new Course("Programming", 101);
+        ArrayList<Student> students = new ArrayList<>();
+       Scanner scanner = new Scanner(System.in);
+       loadStudents(students);
+     try {
+            System.out.println("--- New Student Registration ---");
+            System.out.print("Enter student name: ");
+            String name = scanner.nextLine();
+            System.out.print("Enter student id: ");
+            String id = scanner.nextLine();
+            System.out.print("Enter program: ");
+            String program = scanner.nextLine();
 
-        System.out.print("Enter student name:");
-        String studentName = sc.nextLine();
-        System.out.print("Enter student id:");
-        String studentid =sc.nextLine();
-        System.out.print("Enter program:");
-        String program = sc.nextLine();
-        Student student1 = new Student("Leah", "S123", "Programming");
+            Student newStudent = new Student(name, id, program);
+            students.add(newStudent);
+            newStudent.displayRole();
+            System.out.print("Enter fee amount to pay: ");
+            double fee = scanner.nextDouble();
+            newStudent.payFee(fee);
 
+            saveStudents(students);
 
-        System.out.print("Enter lecturer name:");
-        String lecturer = sc.nextLine();
-        System.out.print("Enter lecturer id:");
-        String lecturerid =sc.nextLine();
-        System.out.print("Enter department:");
-        String department = sc.nextLine();
-        Lecturer lecturer1 = new Lecturer("Dr. Smith", "456", "Computer Science");
-
-        student1.displayRole();
-
-        System.out.print("Enter fee amount:");
-        double fee = sc.nextDouble();
-
-        student1.payFee(1500.00);
-        student1.registerCourse("Programming");
-
-        lecturer1.displayRole();
-        lecturer1.registerCourse("Programming");
-
-    
-    }catch (Exception msg) {
-        System.out.print("Error:Inavlid Input:");
-    }finally {
-        System.out.println("System finished safely.");
+        } catch (Exception e) {
+            System.out.println("Error: Invalid Input.");
+        } finally {
+            System.out.println("System finished safely.");
+            scanner.close();
+        }
     }
-    }
+
 }
