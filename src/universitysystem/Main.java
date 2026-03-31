@@ -16,7 +16,7 @@ public class Main {
         System.out.print("Enter student name:");
         String studentName = sc.nextLine();
         System.out.print("Enter student id:");
-        String Studentid =sc.nextLine();
+        String studentid =sc.nextLine();
         System.out.print("Enter program:");
         String program = sc.nextLine();
         Student student1 = new Student("Leah", "S123", "Programming");
